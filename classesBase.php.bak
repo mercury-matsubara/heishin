@@ -107,14 +107,9 @@ class BasePage extends BaseObject
 		$html .= $this->prTitle;
 		$html .='</title>';
 		$html .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-//		$html .='<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
-//                        <link rel="icon" type="image/png" href="./image/favicon.ico">
-//			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
-//			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
-//			<link rel="stylesheet" href="./jquery.datetimepicker.css">
-//			<link rel="stylesheet" href="./MonthPicker.css">';
-                $html .='<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
-			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+		$html .='<link rel="stylesheet" type="text/css" href="./list_css.css">';
+		$html .='<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css" type="text/css" media="all" />
+			<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
 			<link rel="stylesheet" href="./jquery.datetimepicker.css">
 			<link rel="stylesheet" href="./MonthPicker.css">';
@@ -150,18 +145,16 @@ class BasePage extends BaseObject
 			<script src="./jquery.js"></script>
 			<script src="./jquery.datetimepicker.full.min.js"></script>
 			<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
 			<script src="./MonthPicker.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/i18n/jquery.spectrum-ja.min.js"></script>
 			<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 			<!---↑jQuery---!>
-
+			<script src="./inputcheck.js"></script>
 			<script src="./generate_date.js"></script>
 			<script src="./pulldown.js"></script>
 			<script src="./jquery.corner.js"></script>
-                        			<script src="./inputcheck.js"></script>
 			<script src="./list_jQuery.js"></script>
 			<script src="./tabscript.js"></script>
 			<script src="./hm_hinmoku.js"></script>';
@@ -182,14 +175,7 @@ class BasePage extends BaseObject
 		$html = '<div class="titlebox" id="print">';
 		$html.= '<div class="main_title"><h1>';
 		$html.= APPLICATION_NAME;
-
-		$html.= '</h1>';
-		$html.='<div class="tantomei" >';
-		$html.= '担当:';
-		$html.= mb_convert_encoding($_SESSION['HYOJIMEI'], "UTF-8","SJIS");
-		$html.= '</div>';
-		$html.= '</div>';
-                $html.= '<div class="mlogo"><img src="./image/logo.png" class="logo"></div>';
+		$html.= '</h1></div><div class="mlogo"><img src="./image/mlogo.gif" class="m_logo"></div>';
 		$html.= '</div>';  
 		return $html;
 	}
@@ -203,9 +189,8 @@ class BasePage extends BaseObject
 	function makeBoxMenu()
 	{
 		//画面左側ボタン作成
-		$html = '';
-		$html .= '<div class="pkg_contents" id="print">';
-		$html .='<div  class="main_menu">';
+		$html = '<div class="pkg_contents" id="print">
+				<div class="main_menu">';
 		$html .= makeAllMenu();
 		$html .='</div></div>';
 		return $html;
@@ -510,7 +495,7 @@ class BasePage extends BaseObject
 	{
 		$result = array();
 		$javascript_str = '';
-                $form_pull_str = '';
+
 		//項目名
 		$form_label_str ='<td class = "space"></td><td class ="one">';/* @var $form_element_str 戻り値?となるフォームHTML文字列 */
 		$form_label_str .= '<a class = "itemname">';
@@ -570,16 +555,10 @@ class BasePage extends BaseObject
 		//hiddenはここまでとする
 		if($readonly_setting == 4)
 		{
-                    $result[0] = "";
-                    $result[1] = "";
-                    // プルダウン非表示の場合は
-                    if($form_type != 9)
-                    {
-                        $form_element_str = '<input type ="hidden" name = "'.$element_name.'" id = "'.$element_id.'" value = "'.$form_value.'" >';
-                        $result[0] = $form_element_str;
+			$form_element_str = '<input type ="hidden" name = "'.$element_name.'" id = "'.$element_id.'" value = "'.$form_value.'" >';
+			$result[0] = $form_element_str;
 			$result[1] = $javascript_str;
-                    }
-                    return $result;
+			return $result;
 		}
 
 		$required = '';
@@ -597,12 +576,8 @@ class BasePage extends BaseObject
 			if($is_readonly === false )
 			{
 				//Datepickerスクリプト
-//				$javascript_str .= "$('#$element_id').datepicker();";
-				$javascript_str .= "$('#$element_id').datepicker({
-                                                                                    showOn: 'button',
-                                                                                    buttonImage: './image/icon.gif',
-                                                                                    buttonImageOnly: true
-                                                                                });";
+				$javascript_str .= "$('#$element_id').datepicker();";
+				$javascript_str .= "$('#$element_id').datepicker('option', 'showOn', 'button');";
 				//デフォルト表示値
 				if($form_value != "")
 				{
@@ -614,7 +589,6 @@ class BasePage extends BaseObject
 					$javascript_str .= "$('#$element_id').datepicker('setDate', '$date_str');";
 				}
 			}
-                    
 		}
 		else if($form_type === 4)
 		{
@@ -630,7 +604,7 @@ class BasePage extends BaseObject
 			/********** 年月コントロール **********/
 			//Datepickerスクリプト
 			if($is_readonly === false ){
-                                $javascript_str .= "$('#".$element_id."').MonthPicker({Button: '<img src=\"./image/icon.gif\" class=\"ui-datepicker-trigger\"></img>'})";
+				$javascript_str .= "$('#".$element_id."').MonthPicker({Button: '<button type=\"button\" class=\"ui-datepicker-trigger\">...</button>'})";
 			}
 		}
 		else if($form_type === 6)
@@ -658,6 +632,15 @@ class BasePage extends BaseObject
 		{
 			//プルダウン
 			$pulldpwn = $form_ini[$colum]['pul_num'];
+			//権限確認　承認者の場合ユーザーの権限を読取のみへ
+			$readonly = isPermission($this->prContainer->pbFileName);
+			if($readonly == true)
+			{
+				if($this->prContainer->pbFileName == 'USERMASTER_1' && $_SESSION['KENGEN'] == 2)
+				{		
+					$readonly_class = 'readOnly';
+				}	
+			}
 			$form_element_str= $this->pulldown_setV2($pulldpwn, $element_name, $form_value, $readonly_class, $form_name, $isnotnull);
 		}
 		else if($form_type === 10)
@@ -746,26 +729,8 @@ class BasePage extends BaseObject
 					{
 						$javascript_str .= 'updateAutocompleteByID(\'#'.$element_name.'\',\'#form_' .$sp_setting[2]. '_0\',\''.$sp_setting[1].'\');';
 					}
-                                        
 				}
-                                if($sp_setting[0] == 'pull')
-                                {
-                                    //横プルダウン作成
-                                    $pulldpwn = $form_ini[$sp_setting[1]]['pul_num'];
-                                    $pullname = 'form_'.$sp_setting[1].'_0';
-                                    if(isset($post[$pullname]))
-                                    {
-                                        $pullvalue = $post[$pullname];
-                                    } else {
-                                        loadJisyaMaster();
-                                        $pullset = explode($table_num,$sp_setting[1]);
-                                        $pullvalue= $_SESSION[$pullset[1]];
-                                    }
-                                    //アイコン作成プルダウン作成
-                                    $form_pull_str ='<div class="icon icon--minus icon--plus "><span class="icon__mark"></span></div>';
-                                    $form_pull_str .='<div class="pull">'.$this->pulldown_setV2($pulldpwn, $pullname, $pullvalue, "", $form_name, $isnotnull).'</div>';
-                                }
-                        }
+			}
 
 			//IDに対する値の表示用HTML
 			$temp_element_str = '';
@@ -800,7 +765,7 @@ class BasePage extends BaseObject
 			$form_element_str .= $temp_element_str;
 		}
 
-		$result[0] = $form_label_str.'<td class = "two">'.$form_element_str.$form_pull_str.'</td>';
+		$result[0] = $form_label_str.'<td class = "two">'.$form_element_str.'</td>';
 		$result[1] = $javascript_str;
 
 		return $result;
@@ -1102,7 +1067,69 @@ class BasePage extends BaseObject
 
 		}
 
-	
+	//	//ソート順
+	//	if($orderby != '')
+	//	{
+	//		$serch_str .= "<tr><td><a class = 'itemname'>ソート条件</a></td>";
+	//		$serch_str .= "<td><select name='sort'>";
+	//		$serch_str .=  "<option value='0'";
+	//		if((isset ($post['sort'])))
+	//		{
+	//			if($post['sort'] == 0)
+	//			{
+	//				$serch_str .= " selected";
+	//			}
+	//		}
+	//		else
+	//		{
+	//			$serch_str .=  " selected";
+	//		}
+	//		$serch_str .=  ">---ソート条件を選択してください。---</option>";
+	//		$serch_str .= "<option value='1'";
+	//		if((isset ($post['sort'])))
+	//		{
+	//			if($post['sort'] == 1)
+	//			{
+	//				$serch_str .= " selected";
+	//			}
+	//		}
+	//		$serch_str .=  ">ソートなし</option>";
+	//		for($i = 0; $i < count($orderby_array) ; $i++)
+	//		{
+	//			$serch_str .= "<option value='".$orderby_array[$i]."'";
+	//			if((isset ($post['sort'])))
+	//			{
+	//				if($post['sort'] == $orderby_array[$i])
+	//				{
+	//					$serch_str .= " selected";
+	//				}
+	//			}
+	//			$serch_str .=  ">".$form_ini[$orderby_array[$i]]['item_name']."</option>";
+	//		}
+	//		$serch_str .= "</select><input name='radiobutton' type='radio' value='ASC'";
+	//		if((isset ($post['radiobutton'])))
+	//		{
+	//			if($post['radiobutton'] == 'ASC')
+	//			{
+	//				$serch_str .= " checked";
+	//			}
+	//		}
+	//		else
+	//		{
+	//			$serch_str .= "checked";
+	//		}
+	//		$serch_str .= ">昇順";
+	//		$serch_str .= "<input name='radiobutton' type='radio' value='DESC'";
+	//		if((isset ($post['radiobutton'])))
+	//		{
+	//			if($post['radiobutton'] == 'DESC')
+	//			{
+	//				$serch_str .= " checked";
+	//			}
+	//		}
+	//		$serch_str .= ">降順";
+	//		$serch_str .= "</td></tr>";
+	//	}
 
 		$serch_str .= '</table>';
 		
@@ -1171,22 +1198,13 @@ class BasePage extends BaseObject
 			$form_format = $form_ini[$column]['form1_format'];
 			$form_length = $form_ini[$column]['form1_length'];
 			$form_delimiter = $form_ini[$column]['form1_delimiter'];
-			$form_align = $form_ini[$column]['list_align'];
-			
+
 			$input_type = 'text';
 			$check_js = 'onChange = " return inputcheck(\''.$element_name.'\','.$form_length.','.$form_format.',false,2)"';
 			$check_column_str .= $element_name."~".$form_length."~".$form_format."~".false."~2,";
 
 			//IME制御
-			if($form_align === 2)
-			{
-				$form_input_type = ' class = "txtmode3"';
-			}
-			else
-			{
-				$form_input_type = ' class = "txtmode2"';
-			}
-			
+			$form_input_type = ' class = "txtmode2"';
 			if( $form_format > 4 )
 			{
 				$form_input_type = ' class = "txtmode1"';
@@ -1288,12 +1306,7 @@ class BasePage extends BaseObject
 		//null可の場合
 		if($isAddNoneSel == true)
 		{
-			$select = '';
-			if($formvalue === '' )	{
-				$select = ' selected ';				
-			}
-			
-			$pulldown.='<option value =""'.$select.' >(未指定)</option>';
+			$pulldown.='<option value ="" >(未指定)</option>';
 		}
 
 		foreach ( $list_array as $list_key => $list_text )
@@ -1301,7 +1314,7 @@ class BasePage extends BaseObject
  			$select = '';
 
 			//値と一致しているか
-			if($formvalue !== '' && $list_key == $formvalue)
+			if($list_key == $formvalue)
 			{
 				//一致している場合は、選択状態に
 				$select = ' selected ';
@@ -1790,7 +1803,6 @@ class BasePage extends BaseObject
 			//フォーマット指定
 			if($format != 0)
 			{
-                                
 				$value = format_change($format, $value, $type);
 			}
 
@@ -1802,9 +1814,7 @@ class BasePage extends BaseObject
 				{
 					$href = '';
 					if( $type === '2' )
-					{  
-                                                //$value = mb_convert_encoding($value, "UTF-8", "auto");
-                                                //$value = mb_convert_encoding($value, "SJIS", "UTF-8");
+					{
 						$href = 'file/'.$value;
 					}
 					else
@@ -1817,14 +1827,10 @@ class BasePage extends BaseObject
 					
 					//パラメータ追加
 					$href .= $this->makeGetAdditionalListParam($column);
-					if( $type === '2' ){
-                                            $value = "<a href='download.php?filename=".$value."'>".$value."</a>";
-                                        }else{
-                                            //リンクありの場合、値を<a href >で囲む
-                                            $value = "<a charset='utf-8' href='".$href."'>".$value."</a>";
-                                        }
 					
-					
+					//リンクありの場合、値を<a href >で囲む
+					$value = "<a href='".$href."'>".$value."</a>";
+					//$value = "<a href='main.php?".$link_to."_button=&form_usr$link_key"."_0=".$result_row[$link_key]."'>".$value."</a>";
 				}
 			}
 
@@ -2055,17 +2061,17 @@ class BasePage extends BaseObject
 		//計算を行うための変数設定をスクリプトに付け足す
 		if($main_form_type == 1 )
 		{
-                    //hm_hinmoku.jsの定義にあわせる
-                    $var_name = array('TANKA_NAME','SURYO_NAME','TANNI_NAME','ZEIRISTU_NAME','KINGAKU_NAME','HINMEI_NAME','KINGAKUKEI_NAME','ZEI_NAME', 'TOTAL_NAME', 'FRACTION', 'ZEIFRACTION', 'ZEI8', 'ZEI10');
-                    $calc_setting =$form_ini[$filename_M]['calc_setting_column'];
-                    $calc_setting_array = explode( ',', $calc_setting );
-                    if( count($calc_setting_array) > 6 )
-                    {
-                        for($i = 0; $i < count($var_name); $i++)
+			$var_name = array('TANKA_NAME','SURYO_NAME','TANNI_NAME','ZEIRISTU_NAME','KINGAKU_NAME','HINMEI_NAME','KINGAKUKEI_NAME','ZEI_NAME');	//hm_hinmoku.jsの定義にあわせる
+			$calc_setting =$form_ini[$filename_M]['calc_setting_column'];
+			$calc_setting_array = explode( ',', $calc_setting );
+			if( count($calc_setting_array) > 6 )
 			{
-                            $script_str .= "$var_name[$i]='form_$calc_setting_array[$i]';";
+				for($i = 0; $i < 8; $i++)
+				{
+					$script_str .= "$var_name[$i]='form_$calc_setting_array[$i]';";
+				}
 			}
-                    }
+
 		}
 
 		$result[0] = $list_html;
@@ -2143,6 +2149,326 @@ class BasePage extends BaseObject
 		
 	}
 	
+	/************************************************************************************************************
+	function makePrintPage(&$post,$value,$form_ini)		印刷画面作成
+
+	引数	$post		入力情報保持
+	引数$value		画面設定値
+	引数$form_ini	設定ファイル
+	引数$filename	画面名
+
+	戻り値	$print
+	************************************************************************************************************/
+	function makePrintPage(&$post,$value,&$form_ini,$filename)
+	{
+
+		//------------------------//
+		//        初期設定        //
+		//------------------------//
+
+		require_once ("f_DB.php");
+		require_once ("f_Form.php");
+		require_once ("f_SQL.php");
+
+		//------------------------//
+		//          定数          //
+		//------------------------//
+		$columns = $value['page_columns'];					//画面設定値
+		$columns_array = explode(',',$columns);				//画面設定値
+		$filename_M = $filename."_M";						//ヘッダ明細画面名
+		$columns_M = $form_ini[$filename_M]['page_columns'];//ヘッダ明細設定値	
+		$columns_M_array = explode(',',$columns_M);			//ヘッダ明細設定値
+		
+		//軽減税率用※変数
+		$taxmark = "※";
+		//税率計算
+		$taxcount8 = 0;
+		$taxcount10 = 0;
+		$total8 = 0;
+		$total10 = 0;
+		$notax = 0;
+		$goukei = 0;
+		$date = 0;
+		
+		//日付
+		$stampdate = date('Y.n.j', strtotime($this->Mitsumoribi));
+		
+		//有効期限,支払期限
+		$Yukoukigen = "form_".$columns_array[8]."_"."0";
+		$Yukoukigen = $post[$Yukoukigen];
+		if(strstr($Yukoukigen, '-'))
+		{
+			$Yukoukigen = date('Y年n月j日', strtotime($Yukoukigen));
+			$date = 1;
+		}
+		if(strstr($Yukoukigen, '/'))
+		{
+			$Yukoukigen = date('Y年n月j日', strtotime($Yukoukigen));
+			$date = 1;
+		}
+		//備考
+		$Bikou = "form_".$columns_array[9]."_"."0";
+		if(!isset($post[$Bikou]))
+		{
+			$Bikou = "";
+		}
+		else
+		{
+			$Bikou = $post[$Bikou];
+			$Bikou = nl2br($Bikou);
+		}
+
+		//見積、請求コピー画面時、見積表示選択時 明細の入力値を取得
+		$hinmei = "form_".$columns_M_array[1]."_"."0"."_0";
+		if(!isset($post[$hinmei]))
+		{
+			$userid = $post['USRID'];
+			$use_code = $form_ini[$filename]['use_maintable_num'];
+			$post = make_headerpost($filename_M, $this->prContainer->pbListId, $use_code);
+		}
+		$kingaku8 = 0;
+		$kingaku10 = 0;
+		$kingakukei = 0;
+		$kintax = 0;
+		for($i = 0;$i < 15; $i++)
+		{
+			//金額
+			$money = "form_".$columns_M_array[5]."_"."0"."_".$i;
+			$money = $post[$money];
+			//税率
+			$zei = "form_".$columns_M_array[6]."_"."0"."_".$i;
+			$zei = $post[$zei];
+			
+			//税率計算
+			if($zei == "8")//8%
+			{
+				$kingaku8 = $kingaku8 + $money;	
+			}
+			else if($zei == "10")//10%
+			{
+				$kingaku10 = $kingaku10 + $money;
+			}
+			else//なし
+			{
+				$kintax = $kintax + $money;
+			}	
+		}
+		
+		$tax8 = $kingaku8 * 0.08;
+		$tax10 = $kingaku10 * 0.1;
+		$kingakukei = $kingaku8 + $kingaku10 + $kintax + $tax8 + $tax10;
+		//カンマ区切り処理
+		$kingakukei = number_format($kingakukei);
+		
+		//ログインユーザー情報取得
+		$usercolumn = "form_".$columns_array[6]."_"."0";
+		if(isset($post[$usercolumn]))
+		{
+			$userid = $post[$usercolumn];
+		}
+		/*else
+		{
+			$userid = $post['USRID'];
+		}*/
+		
+		$uservalue = loginUserValue($userid);
+		
+		$stamp01 = '<div class="stamp stamp-approve"><span>'.$stampdate.'</span><span>中塚</span></div>';//承認
+		$stamp02 = '<div class="stamp stamp-audit"><span></span><span></span></div>';				//審査
+		$stamp03 = '<div class="stamp stamp-write"><span>'.$stampdate.'</span><span>'.$uservalue['STAMPNAME'].'</span></div>';	//担当
+
+			//自社情報
+			if( array_key_exists( 'SYAMEI', $_SESSION ) === false )
+			{
+				loadJisyaMaster();
+			}
+				
+			$print = "<p class='kingaku'>金額計(税込)　　　\ $kingakukei</p>";
+			/*下線*/
+			$print .= "<hr align='left'color='black' class='border2'>";
+			if($date == 1)
+			{
+				$print .= "<p class='kigen'>支払期限　$Yukoukigen</p>";
+			}
+			else
+			{
+				$print .= "<p class='kigen'>有効期限　$Yukoukigen</p>";
+			}	
+			/*下線*/
+			$print .= "<hr align='left'color='black' class='border2'>";
+			$print .= "</div>";
+			$print .= "<div class='addressBox'>";
+			$print .= "<p class='name'>".$_SESSION['SYAMEI']."</p>";
+			$print .= "<p style='margin:0px;'>〒".$_SESSION['YUBIN'];
+			$print .= "</br>";
+			$print .= $_SESSION['JYUSHO1'];
+			$print .= "</br>";
+			$print .= $_SESSION['JYUSHO2'];
+			$print .= "</br>";
+			$print .= "TEL：".$_SESSION['TEL']." FAX：".$_SESSION['FAX']."";
+			$print .= "</p>";
+			//改行
+			$print .= "</br>";
+			$print .= "</br>";
+			//印鑑押す
+			$print .= "<table class='inkan' border='1' align='right' >";
+			$print .= "<tr>";
+			$print .= "<td width='80' align='center'>承認</td>";
+			$print .= "<td width='80' align='center'>審査</td>";
+			$print .= "<td width='80' align='center'>担当</td>";
+			$print .= "</tr>";
+			$print .= "<tr>";
+			$print .= "<td height='80'>$stamp01</td>";//承認
+			//$print .= "<td>$stamp02</td>";
+			$print .= "<td></td>";//審査
+			$print .= "<td>$stamp03</td>";//担当
+			$print .= "</tr>";
+			$print .= "</table>";
+			$print .= "</div>";
+
+			$print .= "</div>";
+
+			//明細部分
+			$print .= "<table class='meisai' border='1' align='center'>";
+			$print .= "<tr class='backcolor'>";
+			$print .= "<td width='300' align='center'>品名</td>";
+			$print .= "<td width='120' align='center'>単価</td>";
+			$print .= "<td width='120' align='center'>数量</td>";
+			$print .= "<td width='120' align='center'>金額</td>";
+			$print .= "</tr>";
+
+		
+			for($i = 0; $i < 15; $i++)
+			{
+				//品名
+				$hinmei = "form_".$columns_M_array[1]."_"."0"."_".$i;
+				$hinmei = $post[$hinmei];
+				//単価
+				$tanka = "form_".$columns_M_array[2]."_"."0"."_".$i;	
+				$tanka = $post[$tanka];
+				//数量
+				$suryo = "form_".$columns_M_array[3]."_"."0"."_".$i;
+				$suryo = $post[$suryo];
+				//単位
+				$tani = "form_".$columns_M_array[4]."_"."0"."_".$i;
+				$tani = $post[$tani];
+				//金額
+				$money = "form_".$columns_M_array[5]."_"."0"."_".$i;
+				$money = $post[$money];
+				//税率
+				$zei = "form_".$columns_M_array[6]."_"."0"."_".$i;
+				$zei = $post[$zei];
+				
+				if(($i%2) == 1)
+				{
+					$id = 'class = "color"';
+				}
+				else
+				{
+					$id = 'class = "backcolor"';
+				}
+
+				$print .= "<tr $id>";
+				//品名
+				if($zei == "8")//税率判定
+				{
+					//軽減税率の場合　※記入 半角スペース10行
+					$print .= "<td height='27' align='left' >$taxmark$hinmei</td>";
+				}
+				else
+				{
+					$print .= "<td height='27' align='left' >　$hinmei</td>";
+				}
+				//単価
+				if($tanka != 0)
+				{
+					$tanka_print = number_format($tanka);
+					$print .= "<td  align='right'>\ $tanka_print</td>";
+				}
+				else
+				{
+					$tanka = "";
+					$print .= "<td  align='right'></td>";
+				}
+				//数量
+				if($suryo != 0)
+				{
+					$suryo_print = number_format($suryo);
+					$print .= "<td  align='center'>$suryo_print$tani</td>";
+				}
+				else
+				{
+					$suryo = "";
+					$print .= "<td  align='center'></td>";
+				}
+				//金額
+				if($money != 0)
+				{
+					$money = number_format($money);
+					$print .= "<td  align='right'>\ $money</td>";
+				}	
+				else
+				{
+					$money = "";
+					$print .= "<td  align='right'></td>";
+				}
+				$print .= "</tr>";
+				
+				//税率計算
+				if($zei == "8")//8%
+				{
+					$total8 = $total8 + $tanka * $suryo;
+					$taxcount8 = $taxcount8 + $tanka * $suryo * 0.08;
+				}
+				else if($zei == "10")//10%
+				{
+					$total10 = $total10 + $tanka * $suryo;
+					$taxcount10 = $taxcount10 + $tanka * $suryo * 0.1;
+				}
+				else//なし
+				{
+					$notax = $notax + $tanka * $suryo;
+				}	
+			}
+			
+				//小計、合計計算 ,カンマ区切り処理
+				$shoukei = $total8 + $total10 + $notax;
+				$goukei = $shoukei + $taxcount8 + $taxcount10;
+				$shoukei = number_format($shoukei);
+				$goukei = number_format($goukei);
+				$total8 = number_format($total8);
+				$total10 = number_format($total10);
+				$taxcount8 = number_format($taxcount8);
+				$taxcount10 = number_format($taxcount10);
+				
+				$print .= "</table>";
+				$print .= "<table border='1' align='center' class='goukei'>";
+
+				$print .= "<tr><td height='30' align='center' class='color'>小計</td><td class='backcolor' align='right'>\ $shoukei</td></tr>";
+				$print .= "<tr><td height='26' align='center' class='color'>軽減税率(8%)対象額</td><td class='backcolor' align='right'>\ $total8</td></tr>";
+				$print .= "<tr><td height='26' align='center' class='color'>消費税(8%)</td><td class='backcolor' align='right'>\ $taxcount8</td></tr>";
+				$print .= "<tr><td height='26' align='center' class='color'>消費税(10%)対象額</td><td class='backcolor' align='right'>\ $total10</td></tr>";
+				$print .= "<tr><td height='26' align='center' class='color'>消費税(10%)</td><td class='backcolor' align='right'>\ $taxcount10</td></tr>";
+				$print .= "<tr><td height='30' align='center' class='color'>合計</td><td class='backcolor' align='right'>\ $goukei</td></tr>";
+
+				$print .= "</table>";
+
+
+				$print .= "<div class='bikouBox'>";
+				$print .= "※は軽減税率対象";
+
+				$print .= "<div class='bikou'>";
+				$print .= "<p>$Bikou</p>";
+				$print .= "</div>";
+
+				$print .= "</div>";
+
+				$print .= "</div>";
+
+			$print .= "</div>";
+
+		return ($print);
+	}
 	
 	/***************************************************************************
 	function makebutton($fileName,$buttonPosition)
@@ -2207,181 +2533,5 @@ class BasePage extends BaseObject
 		return ($button_html);
 
 	}
-        /************************************************************************************************************
-        function existCheck($post,$tablenum,$type)
 
-        引数1		$post							登録フォーム入力値
-        引数2		$main_codeValue					編集ID
-        引数3		$tablenum						テーブル番号
-        引数4		$type							1:insert 2:edit 3:delete
-
-        戻り値		$errorinfo						既登録確認結果
-        ************************************************************************************************************/
-        function existCheck($post,$main_codeValue,$tablenum,$type)
-        {
-	
-            //------------------------//
-            //        初期設定        //
-            //------------------------//
-            $form_ini = parse_ini_file('./ini/form.ini', true);
-//            require_once ("f_Form.php");
-//            require_once ("f_DB.php");																							// DB関数呼び出し準備
-//            require_once ("f_SQL.php");																							// SQL関数呼び出し準備
-
-            //------------------------//
-            //          定数          //
-            //------------------------//
-            $filename = $_SESSION['filename'];
-            $uniquecolumn = $form_ini[$filename]['uniquecheck'];
-            $uniquecolumn_array = explode(',',$uniquecolumn);
-            $master_tablenum = $form_ini[$tablenum]['seen_table_num'];
-            $master_tablenum_array = explode(',',$master_tablenum);
-            //------------------------//
-            //          変数          //
-            //------------------------//
-            $errorinfo = array();
-            $errorinfo[0] = "";
-            $sql = "";
-            $judge = false;
-            $codeValue = "";
-            $code = "";
-            $table_title = "";
-            $counter = 1;
-            $syorimei = "";
-
-            //------------------------//
-            //          処理          //
-            //------------------------//
-            switch($type)
-            {
-            case 1 :
-                    $syorimei = "登録";
-                    break;
-            case 2 :
-                    $syorimei = "編集";
-                    break;
-            case 3 :
-                    $syorimei = "削除";
-                    break;
-            default :
-                    break;
-            }
-            $con = dbconect();																									// db接続関数実行
-            if($type == 2)
-            {
-                    $table_title = $form_ini[$tablenum]['table_title'];
-                    $code = $tablenum.'ID';
-                    //$post[$code] = $main_codeValue;//編集するID
-                    //$codeValue = $post[$code];
-                    $codeValue = $main_codeValue;//編集するID
-                    $sql = idSelectSQL($codeValue,$tablenum,$code);
-                    $result = $con->query($sql) or ($judge = true);																	// クエリ発行
-                    if($judge)
-                    {
-                            error_log($con->error,0);
-                            $judge = false;
-                    }
-                    if($result->num_rows == 0 )
-                    {
-                            $errorinfo[$counter] = "<div class = 'center'><a class = 'error'>".
-                                                                            $table_title."情報が削除されているため".
-                                                                            $syorimei."できません。</a></div><br>";
-                            $counter++;
-                    }
-                    else
-                    {
-                            $errorinfo[$counter] = "";
-                            $counter++;
-                    }
-            }
-            for( $j = 0 ; $j < count($uniquecolumn_array) ; $j++)
-            {
-                    if($uniquecolumn_array[$j] == "")
-                    {
-                            break;
-                    }
-                    $sql = uniqeSelectSQL($post,$tablenum,$uniquecolumn_array[$j]);
-                    if(explode('_',$this->prContainer->pbFileName)[0] === 'USERMASTER' || explode('_',$this->prContainer->pbFileName)[0] === 'KOKYAKUMASTER')
-                    {
-                        if(isset($post['edit_list_id']))
-                        {
-                            $unique = explode($tablenum,$uniquecolumn_array[$j])[1];
-                            $uniqueSql = "SELECT ".explode($tablenum,$uniquecolumn_array[$j])[1]." FROM ".$table_title." WHERE ".$code." = ".$post['edit_list_id'].";";
-                            $uniqueResult = $con->query($uniqueSql) or ($judge = true);
-                            foreach($uniqueResult as $row)
-                            {
-                                $colum = $row[$unique];
-                            }
-                            
-                            if($filename === "USERMASTER_1")
-                            {
-                                if($post['form_usrUSERMEI_0'] === $colum)
-                                {
-                                    break;
-                                }
-                            }
-                            else if($filename === "KOKYAKUMASTER_1")
-                            {
-                                if($post['form_kyaKOKYAKUMEI_0'] === $colum)
-                                {
-                                    break;
-                                }
-                            }
-                            
-                        }
-                            $sql = rtrim($sql,';');
-                            $sql .=" AND DELETEFLAG = 0;";
-                    }
-                    
-                    if($sql != '')
-                    {
-                            $result = $con->query($sql) or ($judge = true);																// クエリ発行
-                            if($judge)
-                            {
-                                    error_log($con->error,0);
-                                    $judge = false;
-                            }
-                            if($result->num_rows != 0 )
-                            {
-                                    $errorinfo[0] .= $uniquecolumn_array[$j].",";
-                            }
-                    }
-            }
-            for($k = 0 ; $k < count($master_tablenum_array) ; $k++ )
-            {
-                    if($master_tablenum == '')
-                    {
-                            break;
-                    }
-                    $table_title = $form_ini[$master_tablenum_array[$k]]['table_title'];
-                    $code = $master_tablenum_array[$k].'ID';
-                    $codeValue = $post[$code];
-                    $sql = idSelectSQL($codeValue,$master_tablenum_array[$k],$code);
-                    $result = $con->query($sql) or ($judge = true);																	// クエリ発行
-                    if($judge)
-                    {
-                            error_log($con->error,0);
-                            $judge = false;
-                    }
-                    if($result->num_rows == 0 )
-                    {
-                            $errorinfo[$counter] = "<div class = 'center'><a class = 'error'>".
-                                                                            $table_title."情報が削除されているため".
-                                                                            $syorimei."できません。</a></div><br>";
-                            $counter++;
-                    }
-            }
-            return ($errorinfo);
-        }
-        
-        /**
-         * 検索条件をSESSIONに入れる関数
-         */
-        function setSearchSession($inputContent)
-        {
-            $_SESSION['search']['input'] = $inputContent;
-            $_SESSION['search']['flg'] = 0;
-            
-            return;
-        }
 }

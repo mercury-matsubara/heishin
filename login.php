@@ -84,7 +84,7 @@
 <head>
 <title>ログイン</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="icon" type="image/png" href="./image/favicon.ico">
+<!--<link rel="icon" type="image/png" href="./image/favicon.ico">-->
 <link rel="stylesheet" type="text/css" href="./list_css.css">
 <script src='./jquery-1.8.3.min.js'></script>
 <script src='./jquery-ui-1.10.3.custom.js'></script>
@@ -120,7 +120,9 @@
         <h2 class="title">見積・請求システム</h2>
 	
 	<form action="login.php" method="post">
-	<img src="./image/newMlogo.png" alt="写真" style="width: 15%">
+            <br>
+	<img src="./image/logo.png" alt="写真" style="width: 30%">
+        <br><br>
 	<?php
 	if($comment != "")
 	{

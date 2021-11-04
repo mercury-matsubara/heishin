@@ -397,7 +397,7 @@ class PrintPage extends BasePage {
         $print .= "</p>";
         $print .= "<p class='tantousya'>担当者：" . $this->UserValue['HYOJIMEI'] . " </p>";
         $print .= "</div>";
-        $print .= "<img src='./image/newHANKO.png' class='png'>";
+        $print .= "<img src='./image/heishin.png' class='png'>";
         $print .= "</div>";
         $print .= "</div>";
         $print .= "</div>";
@@ -432,7 +432,7 @@ class PrintPage extends BasePage {
         $taxmark = "※";
          //日付
         $stampdate = date('Y.n.j', strtotime($MitusumoriDate));
-        $stamp01 = '<div class="stamp stamp-approve"><span>' . $stampdate . '</span><span>MCS</span></div>'; //承認
+        $stamp01 = '<div class="stamp stamp-approve"><span>' . $stampdate . '</span><span>HS</span></div>'; //承認
         $stamp02 = '<div class="stamp stamp-audit"><span></span><span></span></div>';    //審査
         $stamp03 = '<div class="stamp stamp-write"><span>' . $stampdate . '</span><span>' . $this->UserValue['STAMPNAME'] . '</span></div>'; //担当
         
@@ -665,8 +665,8 @@ class PrintPage extends BasePage {
         /* 自社情報 */
         $print .= "<div class='jisyaBox'>";
         $print .= "<p>" . $_SESSION['SYAMEI'] . "</p>";
-        $print .= "<p>代表取締役　名倉　充</p>";
-        $print .="<img src='./image/newHANKO.png' class='resultpng'>";
+        $print .= "<p>代表取締役　水野　裕仁</p>";
+        $print .="<img src='./image/heishin.png' class='resultpng'>";
         $print .= "</div>";
 
         /* 作業実績報告書兼確認書 */
