@@ -19,6 +19,15 @@ $(document).ready(function () {
             $("#delivelyprint").addClass("dispNone");
         }
     });
+    // 作業実績報告書兼確認書チェックボックス変更時
+    $('#Confirm').change(function () {
+        if ($(this).prop("checked") === true) {
+            $("#printConfirm").removeClass("dispNone");
+
+        } else {
+            $("#printConfirm").addClass("dispNone");
+        }
+    });
 
     // プラスマイナスアイコンクリック時
     $('.icon').click(function () {

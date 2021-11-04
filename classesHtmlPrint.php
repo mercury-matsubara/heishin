@@ -262,6 +262,7 @@ class PrintPage extends BasePage {
             $html .= '<div id="print" class = "print">';
             $html .= '<label><input type="checkbox" id="copy" checked ><span class="checkbox">控</span></label><br>';
             $html .= '<label><input type="checkbox" id="delively"><span class="checkbox">納品書</span></label><br>';
+            $html .= '<label><input type="checkbox" id="Confirm"><span class="checkbox">作業実績報告書兼確認書</span></label><br>';
             $html .= '<input type="button" value="印刷" id="print" class="print"  onClick="window.print()">';
             $html .= '</div>';
             // 控え印刷作成
@@ -432,7 +433,7 @@ class PrintPage extends BasePage {
         $taxmark = "※";
          //日付
         $stampdate = date('Y.n.j', strtotime($MitusumoriDate));
-        $stamp01 = '<div class="stamp stamp-approve"><span>' . $stampdate . '</span><span>HS</span></div>'; //承認
+        $stamp01 = '<div class="stamp stamp-approve"><span>' . $stampdate . '</span><span>' . $_SESSION['STAMPNAME'] . '</span></div>'; //承認
         $stamp02 = '<div class="stamp stamp-audit"><span></span><span></span></div>';    //審査
         $stamp03 = '<div class="stamp stamp-write"><span>' . $stampdate . '</span><span>' . $this->UserValue['STAMPNAME'] . '</span></div>'; //担当
         
@@ -633,8 +634,8 @@ class PrintPage extends BasePage {
         $total = number_format($this->total);
         
         $id="id='printConfirm' ";
-        $class = "printpage4";
-
+        $class = "printpage4 dispNone";
+        
         $print = "<div $id class='$class'>";
         //日付分解
         $datearray = explode('/', $datetitle);
@@ -665,7 +666,7 @@ class PrintPage extends BasePage {
         /* 自社情報 */
         $print .= "<div class='jisyaBox'>";
         $print .= "<p>" . $_SESSION['SYAMEI'] . "</p>";
-        $print .= "<p>代表取締役　水野　裕仁</p>";
+        $print .= "<p>代表取締役　" . $_SESSION['NAME'] . "</p>";
         $print .="<img src='./image/heishin.png' class='resultpng'>";
         $print .= "</div>";
 
