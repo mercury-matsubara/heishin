@@ -137,6 +137,7 @@ error_reporting(E_ALL);
                                 $_SESSION['filename'] = $keyarray[0];
 				ajustFilename();	//PRINT_5⇒INFO_1にアジャスト
                                 setcookie("back", "", time() - 10);
+                                break;
 			}
 			else if (strstr($key, 'serch_'))//データ検索時
 			{
@@ -169,6 +170,7 @@ error_reporting(E_ALL);
 				$_GET['step'] = $step;
 				$_SESSION['edit'] = $_GET;
 				ajustFilename();	//PRINT_5⇒INFO_1にアジャスト
+                                break;
 			}
 			else if(strstr($key, 'edit_'))//編集ボタン押し時
 			{
@@ -198,27 +200,29 @@ error_reporting(E_ALL);
 			{
 				if( $keyarray[0] ==='MITSUMORIINFO_1' || $_SESSION['filename'] == 'MITSUMORIINFO_1')
 				{
-                                        if(isset($_GET['updateprint']) == 0)
-                                        {
-                                            $step = STEP_PRINT;
-                                        }
-                                        else if(isset($_GET['updateprint']) == 1)
+                                        if(isset($_GET['updateprint']) == 1)
                                         {
                                             $step = STEP_EDIT;
                                             $_SESSION['printupdate'] = 1;
+                                        }
+                                        else if(isset($_GET['insertprint']) == 1)
+                                        {
+                                            $step = STEP_INSERT;
+                                            $_SESSION['printinsert'] = 1;
                                         }
                                         $_SESSION['filename'] = 'MITSUMORIPRINT_5';
 				}
 				else if($keyarray[0] ==='SEIKYUINFO_1' || $_SESSION['filename'] == "SEIKYUINFO_1")
 				{
-                                        if(isset($_GET['updateprint']) == 0)
-                                        {
-                                            $step = STEP_PRINT;
-                                        }
-                                        else if(isset($_GET['updateprint']) == 1)
+                                        if(isset($_GET['updateprint']) == 1)
                                         {
                                             $step = STEP_EDIT;
                                             $_SESSION['printupdate'] = 1;
+                                        }
+                                        else if(isset($_GET['insertprint']) == 1)
+                                        {
+                                            $step = STEP_INSERT;
+                                            $_SESSION['printinsert'] = 1;
                                         }
 					$_SESSION['filename'] = 'SEIKYUPRINT_5';
 				}
